@@ -131,6 +131,7 @@ public abstract class AbstractEventExecutor extends AbstractExecutorService impl
 
     @Override
     protected final <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
+        logger.debug("k###### new PromiseTask(), callable: {}", callable);
         return new PromiseTask<T>(this, callable);
     }
 

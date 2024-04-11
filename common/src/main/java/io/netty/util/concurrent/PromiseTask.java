@@ -15,10 +15,14 @@
  */
 package io.netty.util.concurrent;
 
+import io.netty.util.internal.logging.InternalLogger;
+import io.netty.util.internal.logging.InternalLoggerFactory;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.RunnableFuture;
 
 class PromiseTask<V> extends DefaultPromise<V> implements RunnableFuture<V> {
+    private static final InternalLogger logger = InternalLoggerFactory.getInstance(PromiseTask.class);
 
     static <T> Callable<T> toCallable(Runnable runnable, T result) {
         return new RunnableAdapter<T>(runnable, result);
@@ -70,6 +74,7 @@ class PromiseTask<V> extends DefaultPromise<V> implements RunnableFuture<V> {
     public void run() {
         try {
             if (setUncancellableInternal()) {
+                logger.debug("k###### promiseTask.run(), this: {}, task: {}", this, task);
                 V result = task.call();
                 setSuccessInternal(result);
             }
@@ -103,6 +108,7 @@ class PromiseTask<V> extends DefaultPromise<V> implements RunnableFuture<V> {
     }
 
     protected final Promise<V> setSuccessInternal(V result) {
+        logger.debug("k###### setSuccessInternal(), result: {}", result);
         super.setSuccess(result);
         return this;
     }

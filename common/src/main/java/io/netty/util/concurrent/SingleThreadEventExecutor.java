@@ -339,6 +339,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
         if (isShutdown()) {
             reject();
         }
+        logger.debug("k###### add task to queue, taskQueue: {}, task: {}", taskQueue, task);
         return taskQueue.offer(task);
     }
 
@@ -413,6 +414,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
         long runTasks = 0;
         long lastExecutionTime;
         for (;;) {
+            logger.debug("k###### run normal task, task: {}", task);
             safeExecute(task);
 
             runTasks ++;
@@ -758,6 +760,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
 
     @Override
     public void execute(Runnable task) {
+        logger.debug("k###### execute(), task: {}", task);
         if (task == null) {
             throw new NullPointerException("task");
         }
@@ -904,6 +907,7 @@ public abstract class SingleThreadEventExecutor extends AbstractScheduledEventEx
 
     private void doStartThread() {
         assert thread == null;
+        logger.debug("k###### doStartThread(), executor: {}", executor);
         executor.execute(new Runnable() {
             @Override
             public void run() {
