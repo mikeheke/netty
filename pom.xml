@@ -361,6 +361,7 @@
     <module>testsuite-native-image</module>
     <module>microbench</module>
     <module>bom</module>
+    <module>rpc-fwk</module>
   </modules>
 
   <dependencyManagement>
