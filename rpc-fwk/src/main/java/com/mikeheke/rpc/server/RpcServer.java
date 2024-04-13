@@ -75,8 +75,17 @@ public class RpcServer {
                         // ------ 【空闲检测】处理器 end ------
 
                     }
-                })
-                .bind(RpcConstants.SERVER_PORT); // 5、服务端绑定端口
+                });
+
+        ChannelFuture channelFuture = serverBootstrap.bind(RpcConstants.SERVER_PORT); // 5、服务端绑定端口
+        // 服务端绑定端口成功增加回调监听器
+        channelFuture.addListener(new ChannelFutureListener() {
+            @Override
+            public void operationComplete(ChannelFuture future) throws Exception {
+                log.debug("server bind port success! future: {}", future);
+            }
+        });
+        log.debug("main execute finish!");
     }
 
 }

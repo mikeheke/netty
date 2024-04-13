@@ -124,6 +124,7 @@ public abstract class ChannelInitializer<C extends Channel> extends ChannelInbou
 
     @SuppressWarnings("unchecked")
     private boolean initChannel(ChannelHandlerContext ctx) throws Exception {
+        logger.info("k###### channelInitializer.initChannel(), ctx: {}", ctx);
         if (initMap.add(ctx)) { // Guard against re-entrance.
             try {
                 initChannel((C) ctx.channel());

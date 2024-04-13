@@ -158,6 +158,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
             currentChildAttrs = childAttrs.entrySet().toArray(newAttrArray(0));
         }
 
+        logger.debug("k###### serverBootstrap.addHandler, channelInitializer...");
         p.addLast(new ChannelInitializer<Channel>() {
             @Override
             public void initChannel(final Channel ch) throws Exception {
@@ -170,6 +171,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
                 ch.eventLoop().execute(new Runnable() {
                     @Override
                     public void run() {
+                        logger.debug("k###### pipeline.addLast(), serverBootstrapAcceptor....");
                         pipeline.addLast(new ServerBootstrapAcceptor(
                                 ch, currentChildGroup, currentChildHandler, currentChildOptions, currentChildAttrs));
                     }
@@ -233,6 +235,8 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
         @Override
         @SuppressWarnings("unchecked")
         public void channelRead(ChannelHandlerContext ctx, Object msg) {
+            logger.debug("k###### acceptor.channelRead()/OP_ACCEPT event trigger! ctx: {}, msg: {}, childHandler: {}",
+                    ctx, msg, childHandler);
             final Channel child = (Channel) msg;
 
             child.pipeline().addLast(childHandler);

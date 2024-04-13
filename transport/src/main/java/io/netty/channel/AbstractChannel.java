@@ -487,6 +487,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
         }
 
         private void register0(ChannelPromise promise) {
+            logger.debug("k###### register0(), promise: {}", promise);
             try {
                 // check if the channel is still open as it could be closed in the mean time when the register
                 // call was outside of the eventLoop
@@ -503,6 +504,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 pipeline.invokeHandlerAddedIfNeeded();
 
                 safeSetSuccess(promise);
+                logger.debug("k##### pipeline.fireChannelRegistered(), pipeline: {}", pipeline);
                 pipeline.fireChannelRegistered();
                 // Only fire a channelActive if the channel has never been registered. This prevents firing
                 // multiple channel actives if the channel is deregistered and re-registered.
@@ -559,11 +561,13 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 invokeLater(new Runnable() {
                     @Override
                     public void run() {
+                        logger.debug("k###### fireChannelActive() pipeline: {}", pipeline);
                         pipeline.fireChannelActive();
                     }
                 });
             }
 
+            logger.debug("k###### safeSetSuccess/bind callback after bind port success...");
             safeSetSuccess(promise);
         }
 

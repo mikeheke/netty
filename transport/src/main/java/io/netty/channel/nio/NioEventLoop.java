@@ -440,6 +440,7 @@ public final class NioEventLoop extends SingleThreadEventLoop {
 
     @Override
     protected void run() {
+        logger.debug("k###### nioEventLoop.run(), this: {}", this);
         for (;;) {
             try {
                 try {

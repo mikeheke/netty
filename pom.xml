@@ -219,6 +219,7 @@
     <profile>
       <id>coverage</id>
       <properties>
+        <!--suppress UnresolvedMavenProperty -->
         <argLine.coverage>${jacoco.argLine}</argLine.coverage>
       </properties>
       <build>
@@ -361,7 +362,7 @@
     <module>testsuite-native-image</module>
     <module>microbench</module>
     <module>bom</module>
-    <module>rpc-fwk</module>
+<!--    <module>rpc-fwk</module>-->
   </modules>
 
   <dependencyManagement>

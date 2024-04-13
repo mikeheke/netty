@@ -160,6 +160,7 @@ public abstract class AbstractEventExecutor extends AbstractExecutorService impl
      * Try to execute the given {@link Runnable} and just log if it throws a {@link Throwable}.
      */
     protected static void safeExecute(Runnable task) {
+        logger.debug("k###### safeExecute(), task: {}", task);
         try {
             task.run();
         } catch (Throwable t) {
